@@ -1,5 +1,7 @@
 import HtmlTableToJson from "html-table-to-json";
-import ics from "ics";
+import ical from 'ical-generator';
+import moment from 'moment';
+
 const readTable = (input) => {
     return HtmlTableToJson.parse(input);
 }
@@ -8,8 +10,8 @@ const getNames = (splitInput) => {
     console.log(splitInput)
     // todo: optimize for seattle
     let names = [];
-    for (let i = 0; i < splitInput.results[0].length; i ++) {
-        names.push({name:splitInput.results[0][i].Sammamish, index: i});
+    for (let i = 0; i < splitInput.results[0].length; i++) {
+        names.push({name: splitInput.results[0][i].Sammamish, index: i});
         // names.push(splitInput.results[0][i].Sammamish);
     }
     return names;
@@ -17,18 +19,38 @@ const getNames = (splitInput) => {
 
 const generateEvents = (splitInput, name) => {
     let theirSched = splitInput.results[0][name.index];
-    // theirSched = name;
     let keyNames = Object.keys(theirSched);
     let keyNamesDup = Object.keys(theirSched);
     let formattedSched = [];
-    for (let i = 0; i < keyNames.length; i ++) {
+    for (let i = 0; i < keyNames.length; i++) {
         keyNamesDup[i] = keyNames[i].replace(/\u00a0/g, " ");
         let day = keyNamesDup[i].split(" ")[0];
         if (day === "M" || day === "T" || day === "W" || day === "TH" || day === "F" || day === "SAT" || "SUN" === day) {
-            if (!theirSched[keyNames[i]].includes("x")) formattedSched.push({date: keyNamesDup[i].split(" ")[1], time: theirSched[keyNames[i]]})
+            if (!theirSched[keyNames[i]].includes("x") && !theirSched[keyNames[i]].includes("Sea")) formattedSched.push({
+                date: keyNamesDup[i].split(" ")[1],
+                time: theirSched[keyNames[i]]
+            })
         }
     }
-   console.log( formattedSched)
+    console.log(formattedSched)
+    const calendar = ical({name: 'TANOOR SCHEDULE'});
+    for (let i = 0; i < formattedSched.length; i ++) {
+        let splitTime = formattedSched[i].time.split("-")
+        console.log(formattedSched[i].date + "/" + moment().year())
+        const start = moment(formattedSched[i].date + "/" + moment().year() + " " + splitTime[0] + ":00:00", "MM DD YYYY hh:mm:ss")
+        const end = moment(formattedSched[i].date + "/" + moment().year() + " " + `${splitTime[1].includes("cl") ? "9" : splitTime[1].split("(")[0]}` + ":00:00", "MM DD YYYY hh:mm:ss")
+        console.log(start)
+        console.log(end)
+        calendar.createEvent({
+            start: start,
+            end: end,
+            summary: 'Work @ Tanoor',
+            description: 'It works ;)',
+            location: 'my room',
+            url: 'http://sebbo.net/'
+        });
+    }
+    console.log(calendar.toString())
 }
 
-export { readTable, getNames, generateEvents };
+export {readTable, getNames, generateEvents};
