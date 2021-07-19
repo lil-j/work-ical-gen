@@ -32,7 +32,7 @@ const generateEvents = (splitInput, name) => {
             })
         }
     }
-    const calendar = ical({name: 'TANOOR SCHEDULE'});
+    const calendar = ical({name: name.name + "'s Tanoor Schedule"});
     for (let i = 0; i < formattedSched.length; i ++) {
         let splitTime = formattedSched[i].time.split("-")
         console.log(formattedSched[i].date + "/" + moment().year())
