@@ -118,7 +118,7 @@ export default function Home() {
                                                 </ModalBody>
 
                                                 <ModalFooter>
-                                                    <Button variant="ghost"><a href="https://calendar.google.com" target="_blank">Open Google Calendar</a></Button>
+                                                    <Button variant="ghost"><a href="https://calendar.google.com" rel="noreferrer" target="_blank">Open Google Calendar</a></Button>
                                                 </ModalFooter>
                                             </ModalContent>
                                         </Modal>
