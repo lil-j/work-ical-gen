@@ -17,7 +17,7 @@ const getNames = (splitInput) => {
     return names;
 }
 
-const generateEvents = (splitInput, name) => {
+const parseSplitInput = (splitInput, name) => {
     let theirSched = splitInput.results[0][name.index];
     let keyNames = Object.keys(theirSched);
     let keyNamesDup = Object.keys(theirSched);
@@ -26,12 +26,17 @@ const generateEvents = (splitInput, name) => {
         keyNamesDup[i] = keyNames[i].replace(/\u00a0/g, " ");
         let day = keyNamesDup[i].split(" ")[0];
         if (day === "M" || day === "T" || day === "W" || day === "TH" || day === "F" || day === "SAT" || "SUN" === day) {
-            if (!theirSched[keyNames[i]].includes("x") && !theirSched[keyNames[i]].includes("Sea")) formattedSched.push({
+            if (!theirSched[keyNames[i]].includes("x") && !theirSched[keyNames[i]].includes("Sea") && theirSched[keyNames[i]].length > 2) formattedSched.push({
                 date: keyNamesDup[i].split(" ")[1],
                 time: theirSched[keyNames[i]]
             })
         }
     }
+    return formattedSched;
+}
+
+const generateEvents = (splitInput, name) => {
+    let formattedSched = parseSplitInput(splitInput, name);
     const calendar = ical({name: name.name + "'s Tanoor Schedule"});
     for (let i = 0; i < formattedSched.length; i ++) {
         let splitTime = formattedSched[i].time.split("-")
@@ -58,4 +63,4 @@ const generateEvents = (splitInput, name) => {
     return calendar.toString()
 }
 
-export {readTable, getNames, generateEvents};
+export {readTable, getNames, parseSplitInput, generateEvents};
