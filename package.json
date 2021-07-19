@@ -14,6 +14,8 @@
     "@emotion/react": "^11",
     "@emotion/styled": "^11",
     "framer-motion": "^4",
+    "graphql": "^15.5.1",
+    "graphql-request": "^3.4.0",
     "html-table-to-json": "^1.0.0",
     "ical-generator": "^2.2.0",
     "ics": "^2.29.0",

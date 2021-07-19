@@ -32,8 +32,24 @@ export default function Home() {
         // fetchTitles(splitInput, rows);
     }
 
-    const generateCalendar = () => {
-        generateEvents(scheduleInput, selectedName);
+    const generateCalendar = async () => {
+        let cal = generateEvents(scheduleInput, selectedName);
+        console.log(cal)
+        const response = await fetch("/api/generate-calendar", {
+            method: "POST",
+            headers: {
+                "content-type":"application/json"
+            },
+            body: JSON.stringify({
+                cal, name:selectedName
+            })
+        })
+        const responseJson = await response.json();
+        if(responseJson.errors) {
+            console.log(responseJson.errors)
+        } else {
+            //success
+        }
     }
 
     return (
