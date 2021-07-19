@@ -1,7 +1,7 @@
 import {GraphQLClient, gql} from "graphql-request";
 
 export default async function handler(req, res) {
-    let { id } = req.query
+    let {id} = req.query
     id = id.toLowerCase();
     const graphQLClient = new GraphQLClient("https://api-us-west-2.graphcms.com/v2/ckra8kpl51t1201xn28jbgu78/master", {
         headers: {
