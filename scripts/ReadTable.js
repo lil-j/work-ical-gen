@@ -37,17 +37,27 @@ const generateEvents = (splitInput, name) => {
     for (let i = 0; i < formattedSched.length; i ++) {
         let splitTime = formattedSched[i].time.split("-")
         console.log(formattedSched[i].date + "/" + moment().year())
-        const start = moment(formattedSched[i].date + "/" + moment().year() + " " + splitTime[0] + ":00:00", "MM DD YYYY hh:mm:ss")
-        const end = moment(formattedSched[i].date + "/" + moment().year() + " " + `${splitTime[1].includes("cl") ? "9" : splitTime[1].split("(")[0]}` + ":00:00", "MM DD YYYY hh:mm:ss")
+        let start = moment(formattedSched[i].date + "/" + moment().year() + " " + splitTime[0] + ":00:00", "MM/DD/YYYY hh:mm:ss")
+        console.log(start.hour())
+        if (start.hour() < 10) {
+            start = moment(formattedSched[i].date + "/" + moment().year() + " " + splitTime[0] + ":00:00", "MM/DD/YYYY hh:mm:ss")
+                .add(12, 'hours');
+        }
+        let end = moment(formattedSched[i].date + "/" + moment().year() + " " + `${splitTime[1].includes("cl") ? "9" : splitTime[1].split("(")[0]}` + ":00:00", "MM/DD/YYYY hh:mm:ss")
+        console.log(end.hour())
+        if (end.hour() < 10) {
+            end = moment(formattedSched[i].date + "/" + moment().year() + " " + `${splitTime[1].includes("cl") ? "9" : splitTime[1].split("(")[0]}` + ":00:00", "MM/DD/YYYY hh:mm:ss")
+                .add(12, 'hours');
+        }
         console.log(start)
         console.log(end)
         calendar.createEvent({
             start: start,
             end: end,
             summary: 'Work @ Tanoor',
-            description: 'It works ;)',
-            location: 'my room',
-            url: 'http://sebbo.net/'
+            description: 'dev by Jake',
+            location: 'Tanoor Sammamish',
+            url: 'https://lilj.dev/'
         });
     }
     console.log(calendar.toString())
