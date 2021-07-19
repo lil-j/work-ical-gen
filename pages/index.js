@@ -58,6 +58,7 @@ export default function Home() {
                                             {
                                                 names.map(({name, index}) => (
                                                     <MenuItem
+                                                        key={index}
                                                         onClick={() => setSelectedName({name:name, index:index})}>{name}</MenuItem>
                                                 ))
                                             }
