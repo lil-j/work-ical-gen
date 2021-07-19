@@ -3,6 +3,8 @@ import Image from 'next/image'
 import {useState} from "react";
 import {readTable, getNames, generateEvents} from "../scripts/ReadTable";
 import {Text, Textarea, Input, Stack, Center, Button} from "@chakra-ui/react";
+import useWindowSize from 'react-use/lib/useWindowSize'
+import Confetti from 'react-confetti'
 import {
     Menu,
     MenuButton,
@@ -19,10 +21,12 @@ import {ChevronDownIcon} from "@chakra-ui/icons";
 
 export default function Home() {
     const [scheduleInput, setScheduleInput] = useState();
+    const { width, height } = useWindowSize()
     const [rows, setRows] = useState("");
     const [name, setName] = useState("");
     const [names, setNames] = useState();
     const [selectedName, setSelectedName] = useState();
+    const [success, setSuccess] = useState(false);
     const sendTable = () => {
         if (!rows) setRows(8);
         const splitInput = readTable(scheduleInput);
@@ -49,6 +53,8 @@ export default function Home() {
             console.log(responseJson.errors)
         } else {
             //success
+            setSuccess(true)
+
         }
     }
 
@@ -82,6 +88,12 @@ export default function Home() {
                                     </Menu>
                                     <Text fontSize={"3xl"}>Selected Name: <strong>{selectedName && selectedName.name}</strong></Text>
                                     <Button onClick={generateCalendar}>Generate</Button>
+                                    {success && <>
+                                        <Confetti
+                                            width={width}
+                                            height={height}
+                                        />
+                                    <a href={`/api/calendar/${selectedName.name}`}>SUCCESS - USE THIS LINK IN GCAL</a></>}
                                 </Stack>
                             </>
                     }
