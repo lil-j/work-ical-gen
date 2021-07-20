@@ -1,5 +1,4 @@
 import Head from 'next/head'
-import Image from 'next/image'
 import {useState} from "react";
 import {readTable, getNames, parseSplitInput, generateEvents} from "../scripts/ReadTable";
 import {Text, Textarea, Input, Stack, Center, Button, Link} from "@chakra-ui/react";
@@ -79,6 +78,9 @@ export default function Home() {
 
     return (
         <div>
+            <Head>
+                <title>Schedule to Calendar Builder</title>
+            </Head>
             <Center>
                 <Stack spacing={3}>
                     {

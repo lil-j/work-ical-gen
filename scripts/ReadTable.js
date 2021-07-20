@@ -51,13 +51,17 @@ const generateEvents = (splitInput, name) => {
             end = moment(formattedSched[i].date + "/" + moment().year() + " " + `${splitTime[1].includes("cl") ? "9" : splitTime[1].split("(")[0]}` + ":00:00", "MM/DD/YYYY hh:mm:ss")
                 .add(12, 'hours');
         }
-        calendar.createEvent({
+        const event = calendar.createEvent({
             start: start,
             end: end,
             summary: 'Work @ Tanoor',
             description: 'dev by Jake',
             location: 'Tanoor Sammamish',
             url: 'https://lilj.dev/'
+        });
+        event.createAlarm({
+            type: 'audio',
+            trigger: 1800, // 5min before event
         });
     }
     return calendar.toString()
