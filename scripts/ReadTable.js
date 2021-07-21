@@ -61,7 +61,7 @@ const generateEvents = (splitInput, name) => {
         });
         event.createAlarm({
             type: 'audio',
-            trigger: 1800, // 5min before event
+            trigger: 1800, // 30min before event
         });
     }
     return calendar.toString()
