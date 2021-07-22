@@ -85,10 +85,9 @@ export default function Home() {
                 <Stack spacing={3}>
                     {
                         !names ? <><Text fontSize="3xl">Insert Restaurant Schedule</Text>
-
                                 <div className="schedule-input" contentEditable dangerouslySetInnerHTML={{__html: scheduleInput}}
                                      onInput={(e) => setScheduleInput(e.target.innerHTML)}/>
-                                <Button onClick={sendTable}>Submit</Button>
+                                {scheduleInput && <Button onClick={sendTable}>Submit</Button>}
                                 <Tooltip label="Head over to the most recent schedule email and copy the whole thing,
                                     labels and all. Come back over to the fancy lavender box and paste it in!
                                     Whenever you're ready press submit and we'll look over it.">
