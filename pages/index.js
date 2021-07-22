@@ -1,7 +1,7 @@
 import Head from 'next/head'
 import {useState} from "react";
 import {readTable, getNames, parseSplitInput, generateEvents} from "../scripts/ReadTable";
-import {Text, Textarea, Input, Stack, Center, Button, Link} from "@chakra-ui/react";
+import {Text, Tooltip, Input, Stack, Center, Button, Link} from "@chakra-ui/react";
 import useWindowSize from 'react-use/lib/useWindowSize'
 import Confetti from 'react-confetti'
 import {
@@ -85,9 +85,16 @@ export default function Home() {
                 <Stack spacing={3}>
                     {
                         !names ? <><Text fontSize="3xl">Insert Restaurant Schedule</Text>
-                                <div contentEditable dangerouslySetInnerHTML={{__html: scheduleInput}}
+
+                                <div className="schedule-input" contentEditable dangerouslySetInnerHTML={{__html: scheduleInput}}
                                      onInput={(e) => setScheduleInput(e.target.innerHTML)}/>
-                                <Button onClick={sendTable}>Submit</Button></> :
+                                <Button onClick={sendTable}>Submit</Button>
+                                <Tooltip label="Head over to the most recent schedule email and copy the whole thing,
+                                    labels and all. Come back over to the fancy lavender box and paste it in!
+                                    Whenever you're ready press submit and we'll look over it.">
+                                    How To Use?
+                                </Tooltip>
+                            </> :
                             <>
                                 <br/>
                                 <br/>
@@ -102,7 +109,7 @@ export default function Home() {
                                                 names.map(({name, index}) => (
                                                     <MenuItem
                                                         key={index}
-                                                        onClick={() => onPersonChose(name,index)}>{name}</MenuItem>
+                                                        onClick={() => onPersonChose(name, index)}>{name}</MenuItem>
                                                 ))
                                             }
                                         </MenuList>
@@ -111,7 +118,7 @@ export default function Home() {
                                         Name: <strong>{selectedName && selectedName.name}</strong></Text>
                                     <Text>{displayedShifts && displayedShifts.map(({date, time}, index) => (
                                         <li key={index}>{date} | {time}</li>
-                                        ))}</Text>
+                                    ))}</Text>
                                     <Button onClick={generateCalendar}>Generate</Button>
                                     {success && <>
                                         <Confetti
@@ -119,22 +126,29 @@ export default function Home() {
                                             height={height}
                                         />
                                         <Modal isOpen={success}>
-                                            <ModalOverlay />
+                                            <ModalOverlay/>
                                             <ModalContent>
                                                 <ModalHeader>Calendar Creation Success</ModalHeader>
                                                 <ModalBody>
-                                                    Use <Link color="blue.400" href={`/api/calendar/${selectedName.name}`}>this link</Link> as the import URL
-                                                    for external calendars. Come back to this site each week as new calendars come out.
-                                                    If this is not your first time using this site, there is no need to recreate the calendar,
+                                                    Use <Link color="blue.400"
+                                                              href={`/api/calendar/${selectedName.name}`}>this
+                                                    link</Link> as the import URL
+                                                    for external calendars. Come back to this site each week as new
+                                                    calendars come out.
+                                                    If this is not your first time using this site, there is no need to
+                                                    recreate the calendar,
                                                     it will automatically update within a few hours.
                                                 </ModalBody>
 
                                                 <ModalFooter>
-                                                    <Button variant="ghost"><a href="https://calendar.google.com/calendar/u/0/r/settings/addbyurl" rel="noreferrer" target="_blank">Open Google Calendar</a></Button>
+                                                    <Button variant="ghost"><a
+                                                        href="https://calendar.google.com/calendar/u/0/r/settings/addbyurl"
+                                                        rel="noreferrer" target="_blank">Open Google
+                                                        Calendar</a></Button>
                                                 </ModalFooter>
                                             </ModalContent>
                                         </Modal>
-                                        </>}
+                                    </>}
                                 </Stack>
                             </>
                     }

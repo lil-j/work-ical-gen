@@ -14,3 +14,7 @@ a {
 * {
   box-sizing: border-box;
 }
+
+.schedule-input {
+  outline: #6568ac solid 4px;
+}
