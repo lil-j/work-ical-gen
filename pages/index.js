@@ -118,7 +118,7 @@ export default function Home() {
                                     <Text>{displayedShifts && displayedShifts.map(({date, time}, index) => (
                                         <li key={index}>{date} | {time}</li>
                                     ))}</Text>
-                                    <Button onClick={generateCalendar}>Generate</Button>
+                                    {selectedName && <Button onClick={generateCalendar}>Generate Calendar</Button>}
                                     {success && <>
                                         <Confetti
                                             width={width}
