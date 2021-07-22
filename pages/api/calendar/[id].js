@@ -14,8 +14,6 @@ export default async function handler(req, res) {
     cal
   }
 }
-
-
 `
     const data = await graphQLClient.request(query);
     res.send(data["calendar"].cal)
