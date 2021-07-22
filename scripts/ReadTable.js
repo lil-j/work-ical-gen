@@ -70,7 +70,8 @@ const generateEvents = (splitInput, name) => {
             start: start,
             end: end,
             summary: 'Work @ Tanoor',
-            description: 'dev by Jake',
+            description: 'Disclaimer: Schedule is subject to change -- it is important to double check with master version.' +
+                'Developed by Jake Harper',
             location: 'Tanoor Sammamish',
             url: 'https://lilj.dev/'
         });
@@ -83,4 +84,4 @@ const generateEvents = (splitInput, name) => {
     return calendar.toString()
 }
 
-export {readTable, getNames, parseSplitInput, generateEvents};
+export { readTable, getNames, parseSplitInput, generateEvents };
