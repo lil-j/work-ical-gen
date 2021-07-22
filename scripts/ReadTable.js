@@ -8,11 +8,16 @@ const readTable = (input) => {
 
 const getNames = (splitInput) => {
     console.log(splitInput)
-    // todo: optimize for seattle
+    let location = "";
+    console.log(Object.keys(splitInput.results[0][0]))
+    if (Object.keys(splitInput.results[0][0]).includes("Sammamish")) {
+        location = "Sammamish"
+    } else if (Object.keys(splitInput.results[0][0]).includes("Seattle")) {
+        location = "Seattle"
+    }
     let names = [];
     for (let i = 0; i < splitInput.results[0].length; i++) {
-        names.push({name: splitInput.results[0][i].Sammamish, index: i});
-        // names.push(splitInput.results[0][i].Sammamish);
+        names.push({name: splitInput.results[0][i][location], index: i});
     }
     return names;
 }
