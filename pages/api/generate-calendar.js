@@ -23,7 +23,7 @@ export default async function handler(req, res) {
     const checkGq = await graphQLClient.request(check);
 
     // If we have a match, let's combine the old calendar with the new one
-    if (checkGq["calendar"].cal) {
+    if (checkGq["calendar"].cal && checkGq["calendar"].cal !== cal) {
         cal = updateICal(checkGq["calendar"].cal, cal)
     }
     cal = cal.replace(/(\r\n|\n|\r)/gm,"\\n");
