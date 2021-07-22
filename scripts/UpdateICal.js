@@ -1,5 +1,5 @@
 function updateICal(prevCal, newCal) {
-    fullCal = "";
+    let fullCal = "";
     // Make previous calendar limited to
     prevCal = prevCal.split("\n")
     prevCal.pop();
@@ -12,8 +12,8 @@ function updateICal(prevCal, newCal) {
     prevCal.reverse();
 
     // Combine newCal with prevCal
-    newCalDupped = newCal.split("\n");
-    justCalBeg = newCalDupped[0] + "\n" + newCalDupped[1] + "\n" + newCalDupped[2]
+    let newCalDupped = newCal.split("\n");
+    let justCalBeg = newCalDupped[0] + "\n" + newCalDupped[1] + "\n" + newCalDupped[2]
         + "\n" + newCalDupped[3] + "\n" + newCalDupped[4] + "\n";
     newCalDupped.reverse();
     newCalDupped.pop();
