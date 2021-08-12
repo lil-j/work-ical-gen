@@ -70,7 +70,7 @@ const generateEvents = (splitInput, name) => {
             start: start,
             end: end,
             summary: 'Work @ Tanoor',
-            description: 'Disclaimer: Schedule is subject to change -- it is important to double check with master version.' +
+            description: 'Disclaimer: Schedule is subject to change -- it is important to double check with master version. I am not responsible for bugs. ' +
                 'Developed by Jake Harper',
             location: 'Tanoor Sammamish',
             url: 'https://lilj.dev/'
